@@ -9,32 +9,32 @@ import java.sql.SQLException;
  */
 public class JdbcUrlUtils {
 
-    public static boolean isMsSql(String driverName) {
-        return hasKeywordInUrlProtocol(driverName, "sqlserver");
+    public static boolean isMsSql(String jdbcUrlProtocol) {
+        return hasKeywordInUrlProtocol(jdbcUrlProtocol, "sqlserver");
     }
 
-    public static boolean isHsql(String driverName) {
-        return hasKeywordInUrlProtocol(driverName, "hsqldb");
+    public static boolean isHsql(String jdbcUrlProtocol) {
+        return hasKeywordInUrlProtocol(jdbcUrlProtocol, "hsqldb");
     }
 
-    public static boolean isH2(String driverName) {
-        return hasKeywordInUrlProtocol(driverName, "h2");
+    public static boolean isH2(String jdbcUrlProtocol) {
+        return hasKeywordInUrlProtocol(jdbcUrlProtocol, "h2");
     }
 
-    public static boolean isMysql(String driverName) {
-        return hasKeywordInUrlProtocol(driverName, "mysql");
+    public static boolean isMysql(String jdbcUrlProtocol) {
+        return hasKeywordInUrlProtocol(jdbcUrlProtocol, "mysql");
     }
 
-    public static boolean isPostgre(String driverName) {
-        return hasKeywordInUrlProtocol(driverName, "postgresql");
+    public static boolean isPostgre(String jdbcUrlProtocol) {
+        return hasKeywordInUrlProtocol(jdbcUrlProtocol, "postgresql");
     }
 
-    public static boolean isOracle(String driverName) {
-        return hasKeywordInUrlProtocol(driverName, "oracle");
+    public static boolean isOracle(String jdbcUrlProtocol) {
+        return hasKeywordInUrlProtocol(jdbcUrlProtocol, "oracle");
     }
 
-    public static boolean isDB2(String driverName) {
-        return hasKeywordInUrlProtocol(driverName, "db2");
+    public static boolean isDB2(String jdbcUrlProtocol) {
+        return hasKeywordInUrlProtocol(jdbcUrlProtocol, "db2");
     }
 
     public static String getJdbcUrlProtocol(Connection connection) {
@@ -48,8 +48,8 @@ public class JdbcUrlUtils {
         }
     }
 
-    private static boolean hasKeywordInUrlProtocol(String driverName, String keyword) {
-        return driverName != null && driverName.contains(keyword);
+    private static boolean hasKeywordInUrlProtocol(String jdbcUrlProtocol, String keyword) {
+        return jdbcUrlProtocol != null && jdbcUrlProtocol.contains(keyword);
     }
 
 }
