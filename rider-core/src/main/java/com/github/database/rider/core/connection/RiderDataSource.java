@@ -3,7 +3,7 @@ package com.github.database.rider.core.connection;
 import com.github.database.rider.core.api.connection.ConnectionHolder;
 import com.github.database.rider.core.configuration.DBUnitConfig;
 import com.github.database.rider.core.filter.RiderPrimaryKeyFilter;
-import com.github.database.rider.core.util.DriverUtils;
+import com.github.database.rider.core.util.JdbcUrlUtils;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConfig.ConfigProperty;
@@ -172,27 +172,27 @@ public class RiderDataSource {
     }
 
     private void checkDbType(Connection conn) throws SQLException {
-        dbType = resolveDBType(DriverUtils.getDriverName(conn));
+        dbType = resolveDBType(JdbcUrlUtils.getJdbcUrlProtocol(conn));
         if (dbUnitConfig.getExpectedDbType() != DBType.UNKNOWN && dbUnitConfig.getExpectedDbType() != dbType) {
             throw new SQLException(String.format("Expect %s database, but actually %s database.",
                     dbUnitConfig.getExpectedDbType(), dbType));
         }
     }
 
-    private DBType resolveDBType(String driverName) {
-        if (DriverUtils.isHsql(driverName)) {
+    private DBType resolveDBType(String jdbcUrlProtocol) {
+        if (JdbcUrlUtils.isHsql(jdbcUrlProtocol)) {
             return DBType.HSQLDB;
-        } else if (DriverUtils.isH2(driverName)) {
+        } else if (JdbcUrlUtils.isH2(jdbcUrlProtocol)) {
             return DBType.H2;
-        } else if (DriverUtils.isMysql(driverName)) {
+        } else if (JdbcUrlUtils.isMysql(jdbcUrlProtocol)) {
             return DBType.MYSQL;
-        } else if (DriverUtils.isPostgre(driverName)) {
+        } else if (JdbcUrlUtils.isPostgre(jdbcUrlProtocol)) {
             return DBType.POSTGRESQL;
-        } else if (DriverUtils.isOracle(driverName)) {
+        } else if (JdbcUrlUtils.isOracle(jdbcUrlProtocol)) {
             return DBType.ORACLE;
-        } else if (DriverUtils.isDB2(driverName)) {
+        } else if (JdbcUrlUtils.isDB2(jdbcUrlProtocol)) {
             return DBType.DB2;
-        } else if (DriverUtils.isMsSql(driverName)) {
+        } else if (JdbcUrlUtils.isMsSql(jdbcUrlProtocol)) {
             return DBType.MSSQL;
         } else {
             return DBType.UNKNOWN;
